@@ -7,7 +7,8 @@ namespace PHPFUI\ConstantContact;
  */
 class UUID
 	{
-	public function __construct(private string $uuid)
+    private string $uuid;
+    public function __construct(string $uuid)
 		{
 		if (! \preg_match('/^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$/i', $uuid))
 			{

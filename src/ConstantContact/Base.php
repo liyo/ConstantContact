@@ -4,8 +4,13 @@ namespace PHPFUI\ConstantContact;
 
 class Base
 	{
-	public function __construct(protected \PHPFUI\ConstantContact\Client $client, protected string $urlPath)
+    protected Client $client;
+    protected string $urlPath;
+
+    public function __construct(\PHPFUI\ConstantContact\Client $client, string $urlPath)
 		{
+            $this->client = $client;
+            $this->urlPath = $urlPath;
 		}
 
 	public function success() : bool

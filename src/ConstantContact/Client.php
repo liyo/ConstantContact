@@ -16,6 +16,8 @@ class Client
 
 	public string $refreshToken = '';
 
+    public bool $PKCE = true;
+
 	private string $oauth2URL = 'https://authz.constantcontact.com/oauth2/default/v1/token';
 
 	private string $authorizeURL = 'https://authz.constantcontact.com/oauth2/default/v1/authorize';
@@ -37,14 +39,21 @@ class Client
 	private $sessionCallback = null;
 
 	private \GuzzleHttp\HandlerStack $guzzleHandler;
+    private string $clientAPIKey;
+    private string $clientSecret;
+    private string $redirectURI;
 
 	/**
 	 * Construct a client.
 	 *
 	 * By default, all scopes are enabled.  You can remove any, or set new ones.
 	 */
-	public function __construct(private string $clientAPIKey, private string $clientSecret, private string $redirectURI, public bool $PKCE = true)
+    public function __construct(string $clientAPIKey, string $clientSecret, string $redirectURI, bool $PKCE = true)
 		{
+            $this->PKCE         = $PKCE;
+            $this->redirectURI  = $redirectURI;
+            $this->clientSecret = $clientSecret;
+            $this->clientAPIKey = $clientAPIKey;
 		// default to all scopes
 		$this->scopes = \array_flip($this->validScopes);
 		$this->host = $_SERVER['HTTP_HOST'] ?? '';
